@@ -9,3 +9,7 @@ export const isDark = (hex: string): boolean => {
 
   return r * 0.299 + g * 0.587 + b * 0.114 < 186;
 };
+
+export const copyToClipboard = (text: string): void => {
+  navigator.clipboard.writeText(text);
+};

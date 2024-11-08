@@ -83,3 +83,7 @@ export const importFromRaw = (raw: string): WordSet[] => {
   saveData(data);
   return data;
 };
+
+export const clearData = (): void => {
+  localStorage.removeItem("voca-cache");
+};

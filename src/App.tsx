@@ -1,7 +1,13 @@
 import { useLoaderData } from "react-router-dom";
-import { insertEmptySet, loadData, WordSet } from "./lib/word";
+import {
+  clearData,
+  getRawData,
+  insertEmptySet,
+  loadData,
+  WordSet,
+} from "./lib/word";
 import { useState } from "react";
-import { getRandomHex, isDark } from "./lib/utils";
+import { copyToClipboard, getRandomHex, isDark } from "./lib/utils";
 import cn from "@yeahx4/cn";
 
 function App() {
@@ -30,6 +36,30 @@ function App() {
         />
         <button className="bg-gray-100 px-4 py-2 w-32" onClick={addSet}>
           Add Set
+        </button>
+      </div>
+
+      <div className="flex justify-between w-full h-16">
+        <button
+          className="w-1/2 bg-red-500 text-white text-lg rounded-l-md"
+          onClick={() => {
+            const really = confirm("Are you sure?");
+            if (!really) return;
+            clearData();
+            setSets([]);
+          }}
+        >
+          Clear word set
+        </button>
+        <button
+          className="w-1/2 bg-green-500 text-white text-lg rounded-r-md"
+          onClick={() => {
+            const raw = getRawData();
+            copyToClipboard(raw);
+            alert("Copied to clipboard!");
+          }}
+        >
+          Export to clipboard
         </button>
       </div>
 
