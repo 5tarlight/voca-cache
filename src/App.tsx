@@ -4,15 +4,18 @@ import {
   getRawData,
   insertEmptySet,
   loadData,
+  saveData,
   WordSet,
 } from "./lib/word";
 import { useState } from "react";
 import { copyToClipboard, getRandomHex, isDark } from "./lib/utils";
 import cn from "@yeahx4/cn";
+import { decode } from "./lib/base64";
 
 function App() {
   const [sets, setSets] = useState<WordSet[]>(useLoaderData() as WordSet[]);
   const [newSet, setNewSet] = useState("");
+  const [importInput, setImportInput] = useState("");
 
   const addSet = () => {
     if (!newSet) return;
@@ -20,6 +23,26 @@ function App() {
     insertEmptySet(newSet, getRandomHex());
     setNewSet("");
     setSets(loadData());
+  };
+
+  const importRaw = () => {
+    if (!importInput) return;
+
+    const really = confirm(
+      "Are you sure? This will overwrite the current data"
+    );
+    if (!really) return;
+
+    try {
+      const data = JSON.parse(decode(importInput));
+      if (!Array.isArray(data)) throw new Error("Invalid data");
+
+      saveData(data);
+      setSets(data);
+      setImportInput("");
+    } catch (e) {
+      alert("Invalid data");
+    }
   };
 
   return (
@@ -84,6 +107,19 @@ function App() {
         ) : (
           <div>No Word Sets</div>
         )}
+      </div>
+
+      <div className="my-16 flex justify-center w-[80%] gap-0">
+        <input
+          className="border px-4 py-2 w-[calc(100%-128px)]"
+          placeholder="Import from clipboard"
+          value={importInput}
+          onChange={(e) => setImportInput(e.target.value)}
+          onKeyDown={(e) => e.key === "Enter" && importRaw()}
+        />
+        <button className="bg-gray-100 px-4 py-2 w-32" onClick={importRaw}>
+          Import
+        </button>
       </div>
     </div>
   );
