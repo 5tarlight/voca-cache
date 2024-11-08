@@ -5,6 +5,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Layout from "./routes/layout.tsx";
 import ErrorPage from "./routes/error-page.tsx";
 import App from "./App.tsx";
+import { loadData } from "./lib/word.ts";
 
 const router = createBrowserRouter([
   {
@@ -15,6 +16,7 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <App />,
+        loader: loadData,
       },
     ],
   },
