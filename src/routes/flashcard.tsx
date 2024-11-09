@@ -25,7 +25,12 @@ export default function FlashCard() {
       setIdx((idx) => (idx - 1 + set.words.length) % set.words.length);
       setShowMeaning(false);
     } else if (e.key === " ") {
-      setShowMeaning((prev) => !prev);
+      if (showMeaning) {
+        setIdx((idx) => (idx + 1) % set.words.length);
+        setShowMeaning(false);
+      } else {
+        setShowMeaning(true);
+      }
     }
   };
 
