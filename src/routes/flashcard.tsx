@@ -6,6 +6,7 @@ import cn from "@yeahx4/cn";
 
 export default function FlashCard() {
   const id = useParams().id || "";
+  const random = useParams().random || "true";
   const set = getSet(id);
   const navigate = useNavigate();
 
@@ -29,11 +30,12 @@ export default function FlashCard() {
   };
 
   useEffect(() => {
-    window.addEventListener("keydown", handleKeyDown);
+    if (random === "true") {
+      set.words = set.words.sort(() => Math.random() - 0.5);
+    }
 
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
   return (
