@@ -7,6 +7,7 @@ import ErrorPage from "./routes/error-page.tsx";
 import App from "./App.tsx";
 import { loadData } from "./lib/word.ts";
 import VocaSet from "./routes/word-set.tsx";
+import FlashCard from "./routes/flashcard.tsx";
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
       {
         path: "/set/:id",
         element: <VocaSet />,
+      },
+      {
+        path: "/fc/:id",
+        element: <FlashCard />,
       },
     ],
   },

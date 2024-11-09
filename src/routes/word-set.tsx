@@ -1,8 +1,9 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { getSet, insertWord, removeWord } from "../lib/word";
 import { useState } from "react";
 import { getUUID } from "../lib/uuid";
 import cn from "@yeahx4/cn";
+import { isDark } from "../lib/utils";
 
 export default function VocaSet() {
   const id = useParams().id || "";
@@ -41,6 +42,18 @@ export default function VocaSet() {
       >
         {set.title}
       </h1>
+      <div className="flex justify-center mt-8">
+        <Link
+          to={`/fc/${set.id}`}
+          className="px-4 py-2 rounded-sm"
+          style={{
+            backgroundColor: set.color,
+            color: isDark(set.color) ? "white" : "black",
+          }}
+        >
+          Test yourself
+        </Link>
+      </div>
 
       <div className="my-16 flex justify-center gap-0 w-full">
         <input
