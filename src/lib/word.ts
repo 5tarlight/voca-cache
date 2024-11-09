@@ -87,3 +87,7 @@ export const importFromRaw = (raw: string): WordSet[] => {
 export const clearData = (): void => {
   localStorage.removeItem("voca-cache");
 };
+
+export const getSet = (setId: string): WordSet | undefined => {
+  return loadData().find((set) => set.id === setId);
+};

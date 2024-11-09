@@ -1,7 +1,7 @@
 export const encode = (input: string): string => {
-  return btoa(input);
+  return btoa(encodeURIComponent(input));
 };
 
 export const decode = (input: string): string => {
-  return atob(input);
+  return decodeURIComponent(atob(input));
 };

@@ -1,4 +1,4 @@
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import {
   clearData,
   getRawData,
@@ -13,6 +13,8 @@ import cn from "@yeahx4/cn";
 import { decode } from "./lib/base64";
 
 function App() {
+  const navigate = useNavigate();
+
   const [sets, setSets] = useState<WordSet[]>(useLoaderData() as WordSet[]);
   const [newSet, setNewSet] = useState("");
   const [importInput, setImportInput] = useState("");
@@ -55,7 +57,9 @@ function App() {
           placeholder="Create new corpus"
           value={newSet}
           onChange={(e) => setNewSet(e.target.value)}
-          onKeyDown={(e) => e.key === "Enter" && addSet()}
+          onKeyDown={(e) =>
+            !e.nativeEvent.isComposing && e.key === "Enter" && addSet()
+          }
         />
         <button className="bg-gray-100 px-4 py-2 w-32" onClick={addSet}>
           Add Set
@@ -100,6 +104,7 @@ function App() {
                 backgroundColor: set.color,
                 color: isDark(set.color) ? "white" : "black",
               }}
+              onClick={() => navigate(`/set/${set.id}`)}
             >
               <h2 className="text-2xl font-bold">{set.title}</h2>
             </div>
@@ -115,7 +120,9 @@ function App() {
           placeholder="Import from clipboard"
           value={importInput}
           onChange={(e) => setImportInput(e.target.value)}
-          onKeyDown={(e) => e.key === "Enter" && importRaw()}
+          onKeyDown={(e) =>
+            !e.nativeEvent.isComposing && e.key === "Enter" && importRaw()
+          }
         />
         <button className="bg-gray-100 px-4 py-2 w-32" onClick={importRaw}>
           Import
