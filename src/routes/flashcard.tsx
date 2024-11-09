@@ -41,7 +41,7 @@ export default function FlashCard() {
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, []);
+  }, [showMeaning]);
 
   return (
     <div
