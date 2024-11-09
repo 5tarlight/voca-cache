@@ -11,7 +11,6 @@ import {
 import { useState } from "react";
 import { copyToClipboard, getRandomHex, isDark } from "./lib/utils";
 import cn from "@yeahx4/cn";
-import { decode } from "./lib/base64";
 
 function App() {
   const navigate = useNavigate();
@@ -37,7 +36,7 @@ function App() {
     if (!really) return;
 
     try {
-      const data = JSON.parse(decode(importInput));
+      const data = JSON.parse(importInput);
       if (!Array.isArray(data)) throw new Error("Invalid data");
 
       saveData(data);

@@ -1,6 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import { getSet, insertWord, removeWord } from "../lib/word";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { getUUID } from "../lib/uuid";
 import cn from "@yeahx4/cn";
 import { isDark } from "../lib/utils";
@@ -18,9 +18,15 @@ export default function VocaSet() {
 
   const [newWord, setNewWord] = useState("");
   const [newMeaning, setNewMeaning] = useState("");
+  const wordInputRef = useRef<HTMLInputElement>(null);
+  const meaningRef = useRef<HTMLInputElement>(null);
 
   const addWord = () => {
-    if (!newWord || !newMeaning) return;
+    if (!newWord) return;
+    if (!newMeaning) {
+      meaningRef.current?.focus();
+      return;
+    }
 
     insertWord(set.id, {
       id: getUUID(),
@@ -30,6 +36,7 @@ export default function VocaSet() {
     setNewWord("");
     setNewMeaning("");
     setSet(getSet(set.id));
+    wordInputRef.current?.focus();
   };
 
   return (
@@ -64,6 +71,7 @@ export default function VocaSet() {
           onKeyDown={(e) =>
             !e.nativeEvent.isComposing && e.key === "Enter" && addWord()
           }
+          ref={wordInputRef}
         />
         <input
           className="border px-4 py-2 w-[calc(50%-64px)]"
@@ -73,6 +81,7 @@ export default function VocaSet() {
           onKeyDown={(e) =>
             !e.nativeEvent.isComposing && e.key === "Enter" && addWord()
           }
+          ref={meaningRef}
         />
         <button className="bg-gray-100 px-4 py-2 w-32" onClick={addWord}>
           Add Word
@@ -81,7 +90,7 @@ export default function VocaSet() {
 
       <div className="text-center my-8">{set.words.length} words</div>
 
-      <div className="flex flex-col items-center gap-2">
+      <div className="flex flex-col items-center gap-2 mb-16">
         {set.words.map((word) => (
           <div
             key={word.id}

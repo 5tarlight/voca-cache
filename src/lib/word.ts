@@ -1,4 +1,3 @@
-import { decode, encode } from "./base64";
 import { getUUID } from "./uuid";
 
 export interface Word {
@@ -18,7 +17,7 @@ export const loadData = (): WordSet[] => {
   const storage = localStorage.getItem("voca-cache");
   if (!storage) return [];
 
-  return JSON.parse(decode(storage));
+  return JSON.parse(storage);
 };
 
 export const getRawData = (): string => {
@@ -26,10 +25,7 @@ export const getRawData = (): string => {
 };
 
 export const saveData = (data: WordSet[]): void => {
-  localStorage.setItem(
-    "voca-cache",
-    data.length ? encode(JSON.stringify(data)) : ""
-  );
+  localStorage.setItem("voca-cache", data.length ? JSON.stringify(data) : "");
 };
 
 export const insertWord = (setId: string, word: Word): WordSet[] => {
@@ -79,7 +75,7 @@ export const insertEmptySet = (title: string, color: string): WordSet[] => {
 };
 
 export const importFromRaw = (raw: string): WordSet[] => {
-  const data = JSON.parse(decode(raw));
+  const data = JSON.parse(raw);
   saveData(data);
   return data;
 };
