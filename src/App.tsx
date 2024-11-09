@@ -4,6 +4,7 @@ import {
   getRawData,
   insertEmptySet,
   loadData,
+  removeSet,
   saveData,
   WordSet,
 } from "./lib/word";
@@ -96,9 +97,9 @@ function App() {
             <div
               key={set.id}
               className={cn(
-                "flex flex-col gap-4 w-[80%] max-w-5xl text-center",
+                "flex flex-col w-[80%] max-w-5xl text-center",
                 "items-center px-4 py-8 rounded-lg shadow-md",
-                "hover:cursor-pointer"
+                "hover:cursor-pointer relative"
               )}
               style={{
                 backgroundColor: set.color,
@@ -107,6 +108,28 @@ function App() {
               onClick={() => navigate(`/set/${set.id}`)}
             >
               <h2 className="text-2xl font-bold">{set.title}</h2>
+              <div>{set.words.length} words</div>
+              <svg
+                className="absolute top-2 right-2 h-8 w-8"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  const really = confirm("Are you sure?");
+                  if (!really) return;
+                  saveData(removeSet(set.id));
+                  setSets(loadData());
+                }}
+              >
+                <path fill="currentColor" d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+                <path
+                  fill="currentColor"
+                  fillRule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm0 2a10 10 0 100-20 10 10 0 000 20zm-2-8a2 2 0 114 0 2 2 0 01-4 0z"
+                  clipRule="evenodd"
+                />
+              </svg>
             </div>
           ))
         ) : (
