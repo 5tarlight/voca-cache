@@ -1,50 +1,28 @@
-# React + TypeScript + Vite
+# Word Cache
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Word Cache** is a simple, user-friendly app that helps you memorize
+vocabulary sets without needing to sign up. Create word sets, save
+words and their meanings, and use randomized tests to boost memorization!
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **No Account Required**: Create, edit, and store word sets without signing up.
+- **Local Storage-Based**: All data is stored locally using localStorage, eliminating the need for a database.
+- **Export/Import**: Export your word sets as code to share or back up, and import them easily on other devices or browsers.
+- **Randomized Testing**: Take random tests to reinforce memorization and track progress.
 
-## Expanding the ESLint configuration
+## Usage
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- **Create a Word Set**: Open the app, create a new set, and add words with their meanings.
+- **Memorize with Tests**: Start a randomized test from any word set to check your progress.
+- **Export/Import Word Sets**: Save your sets by exporting them as code and import them on another device to continue studying.
 
-- Configure the top-level `parserOptions` property like this:
+## Contributing
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+If you want to contribute to **Word Cache**, feel free to fork this
+repository and submit pull requests. Contributions, issue reports,
+and feature suggestions are welcome!
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## License
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+This project is licensed under the MIT License.
